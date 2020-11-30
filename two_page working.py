@@ -25,6 +25,7 @@ class Test_offers():
             url = self.driver.current_url
             if url.__contains__("sign-up"):
                 try:
+
                     self.driver.execute_script("window.scrollBy(0, 100);")
                     self.driver.find_element_by_css_selector("#reg-form-btn").click()
                     time.sleep(5)
@@ -36,6 +37,8 @@ class Test_offers():
                     time.sleep(5)
                     print(link[i] + "one")
                     i += 1
+                finally:
+                    continue
 
             else:
                 try:
@@ -44,17 +47,20 @@ class Test_offers():
                         "test_" + datetime.now().strftime("%m.%d.%Y_%H.%M.%S") + "@qa.team")
                     self.driver.find_element_by_css_selector("#optin-form-btn").click()
                     self.driver.find_element_by_css_selector("#reg-form-btn").click()
-
+                    time.sleep(5)
+                    print(link[i] + "two")
+                    i += 1
                 except:
                     self.driver.find_element_by_xpath('(//*[@id="optin-form-first_name"])[2]').send_keys("test")
                     self.driver.find_element_by_xpath('(//*[@id="optin-form-email"])[2]').send_keys("test_" + datetime.now().strftime("%m.%d.%Y_%H.%M.%S") + "@qa.team")
                     self.driver.find_element_by_xpath('(//*[@id="optin-form-btn"])[2]').click()
                     self.driver.find_element_by_css_selector("#reg-form-btn").click()
-                time.sleep(5)
-                print(link[i]+ "two")
-                i += 1
+                    time.sleep(5)
+                    print(link[i] + "two")
+                    i += 1
 
-
+                finally:
+                    continue
 
     @classmethod
     def teardown_method(self):
