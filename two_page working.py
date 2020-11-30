@@ -24,44 +24,48 @@ class Test_offers():
             self.driver.get("http://" + link[i])
             url = self.driver.current_url
             if url.__contains__("sign-up"):
+                ##ONE PAGE TEST
                 try:
-
-                    self.driver.execute_script("window.scrollBy(0, 100);")
-                    self.driver.find_element_by_css_selector("#reg-form-btn").click()
-                    time.sleep(5)
-                    print(link[i] + "one")
-                    i += 1
+                    try:
+                        self.driver.execute_script("window.scrollBy(0, 100);")
+                        self.driver.find_element_by_css_selector("#reg-form-btn").click()
+                        time.sleep(5)
+                        print(link[i] + "one")
+                        i += 1
+                    except:
+                        self.driver.execute_script("window.scrollBy(0, 100);")
+                        self.driver.find_element_by_css_selector("#reg-form1-btn").click()
+                        time.sleep(5)
+                        print(link[i] + "one")
+                        i += 1
                 except:
-                    self.driver.execute_script("window.scrollBy(0, 100);")
-                    self.driver.find_element_by_css_selector("#reg-form1-btn").click()
-                    time.sleep(5)
-                    print(link[i] + "one")
+                    print("Something wrong with " + link[i])
                     i += 1
-                finally:
                     continue
-
             else:
                 try:
-                    self.driver.find_element_by_css_selector("#optin-form-first_name").send_keys("test")
-                    self.driver.find_element_by_css_selector("#optin-form-email").send_keys(
-                        "test_" + datetime.now().strftime("%m.%d.%Y_%H.%M.%S") + "@qa.team")
-                    self.driver.find_element_by_css_selector("#optin-form-btn").click()
-                    self.driver.find_element_by_css_selector("#reg-form-btn").click()
-                    time.sleep(5)
-                    print(link[i] + "two")
-                    i += 1
+                    try:
+                        self.driver.find_element_by_css_selector("#optin-form-first_name").send_keys("test")
+                        self.driver.find_element_by_css_selector("#optin-form-email").send_keys(
+                            "test_" + datetime.now().strftime("%m.%d.%Y_%H.%M.%S") + "@qa.team")
+                        self.driver.find_element_by_css_selector("#optin-form-btn").click()
+                        self.driver.find_element_by_css_selector("#reg-form-btn").click()
+                        time.sleep(5)
+                        print(link[i] + "two")
+                        i += 1
+                    except:
+                        self.driver.find_element_by_xpath('(//*[@id="optin-form-first_name"])[2]').send_keys("test")
+                        self.driver.find_element_by_xpath('(//*[@id="optin-form-email"])[2]').send_keys("test_" + datetime.now().strftime("%m.%d.%Y_%H.%M.%S") + "@qa.team")
+                        self.driver.find_element_by_xpath('(//*[@id="optin-form-btn"])[2]').click()
+                        self.driver.find_element_by_css_selector("#reg-form-btn").click()
+                        time.sleep(5)
+                        print(link[i] + "two")
+                        i += 1
+
                 except:
-                    self.driver.find_element_by_xpath('(//*[@id="optin-form-first_name"])[2]').send_keys("test")
-                    self.driver.find_element_by_xpath('(//*[@id="optin-form-email"])[2]').send_keys("test_" + datetime.now().strftime("%m.%d.%Y_%H.%M.%S") + "@qa.team")
-                    self.driver.find_element_by_xpath('(//*[@id="optin-form-btn"])[2]').click()
-                    self.driver.find_element_by_css_selector("#reg-form-btn").click()
-                    time.sleep(5)
-                    print(link[i] + "two")
+                    print("Something wrong with " + link[i])
                     i += 1
-
-                finally:
                     continue
-
     @classmethod
     def teardown_method(self):
         print("quit browser for test..")
