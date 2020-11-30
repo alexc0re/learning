@@ -24,26 +24,30 @@ class Test_offers():
             self.driver.get("http://" + link[i])
             url = self.driver.current_url
             if url.__contains__("sign-up"):
-                ##ONE PAGE TEST
+                ##ONE PAGE TEST##
                 try:
+                    ## ONE PAGE TEST WITH FIRST TYPE OF SELECTORS##
                     try:
                         self.driver.execute_script("window.scrollBy(0, 100);")
                         self.driver.find_element_by_css_selector("#reg-form-btn").click()
                         time.sleep(5)
                         print(link[i] + "one")
                         i += 1
+                    ## ONE PAGE TEST WITH SECOND TYPE OF SELECTORS##
                     except:
                         self.driver.execute_script("window.scrollBy(0, 100);")
                         self.driver.find_element_by_css_selector("#reg-form1-btn").click()
                         time.sleep(5)
                         print(link[i] + "one")
                         i += 1
+                    ## IF ERROR##
                 except:
                     print("Something wrong with " + link[i])
                     i += 1
                     continue
             else:
                 try:
+                    ## TWO PAGE TEST WITH SECOND TYPE OF SELECTORS##
                     try:
                         self.driver.find_element_by_css_selector("#optin-form-first_name").send_keys("test")
                         self.driver.find_element_by_css_selector("#optin-form-email").send_keys(
@@ -53,7 +57,9 @@ class Test_offers():
                         time.sleep(5)
                         print(link[i] + "two")
                         i += 1
+                    ## TWO PAGE TEST WITH SECOND TYPE OF SELECTORS##
                     except:
+
                         self.driver.find_element_by_xpath('(//*[@id="optin-form-first_name"])[2]').send_keys("test")
                         self.driver.find_element_by_xpath('(//*[@id="optin-form-email"])[2]').send_keys("test_" + datetime.now().strftime("%m.%d.%Y_%H.%M.%S") + "@qa.team")
                         self.driver.find_element_by_xpath('(//*[@id="optin-form-btn"])[2]').click()
@@ -61,12 +67,12 @@ class Test_offers():
                         time.sleep(5)
                         print(link[i] + "two")
                         i += 1
-
+                    ## IF ERROR##
                 except:
                     print("Something wrong with " + link[i])
                     i += 1
                     continue
-    @classmethod
+    @classmethod ##CLOSE BROWSER
     def teardown_method(self):
         print("quit browser for test..")
         self.driver.quit()
